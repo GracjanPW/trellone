@@ -43,7 +43,7 @@ const MarketingPage = () => {
         </div>
       </div>
       <Button className="mt-6" size={"lg"} asChild>
-        <Link href="/sign-uo">
+        <Link href="/sign-up">
             Get Trellone for free
         </Link>
       </Button>
