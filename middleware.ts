@@ -13,13 +13,14 @@ export default clerkMiddleware(async (auth, request) => {
     const orgSelect = new URL(path, request.url);
     return NextResponse.redirect(orgSelect);
   }
+  if (userId && !orgId && request.nextUrl.pathname !== "/select-org") {
+    const orgSelect = new URL(`/select-org`, request.url);
+    return NextResponse.redirect(orgSelect);
+  }
   if (!isPublicRoute(request)) {
     await auth.protect();
   }
-  if (userId && !orgId && request.nextUrl.pathname !=="/select-org") {
-    const orgSelect = new URL(`/select-org`, request.url);
-    return NextResponse.redirect(orgSelect)
-  }
+
 });
 
 export const config = {
