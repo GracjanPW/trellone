@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 const isPublicRoute = createRouteMatcher(["/sign-in(.*)", "/sign-up(.*)", "/"]);
 
 export default clerkMiddleware(async (auth, request) => {
-  const { userId, orgId } = await auth();
+  const { userId, orgId, redirectToSignIn } = await auth();
   if (userId && isPublicRoute(request)) {
     let path = "/select-org";
     if (orgId) {
@@ -17,11 +17,10 @@ export default clerkMiddleware(async (auth, request) => {
     const orgSelect = new URL(`/select-org`, request.url);
     return NextResponse.redirect(orgSelect);
   }
-  if (!isPublicRoute(request)) {
-    await auth.protect();
+  if (!userId && !isPublicRoute(request)) {
+    return redirectToSignIn()
   }
-
-});
+},{debug:false});
 
 export const config = {
   matcher: [
