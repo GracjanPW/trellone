@@ -2,7 +2,7 @@
 
 import { useState, useRef, ElementRef } from "react";
 import { List } from "@prisma/client";
-import { useEventListener, useOnClickOutside } from "usehooks-ts";
+import { useEventListener } from "usehooks-ts";
 import FormInput from "@/components/form/FormInput";
 import { useAction } from "@/hooks/use-action";
 import { updateList } from "@/actions/update-list";
@@ -11,9 +11,10 @@ import ListOptions from "./ListOptions";
 
 interface ListHeaderProps {
   data: List;
+  onAddCard:()=>void;
 }
 
-const ListHeader = ({ data }: ListHeaderProps) => {
+const ListHeader = ({ data, onAddCard }: ListHeaderProps) => {
   const [title, setTitle] = useState(data.title);
   const [isEditing, setIsEditing] = useState(false);
   const formRef = useRef<ElementRef<"form">>(null);
@@ -84,7 +85,7 @@ const ListHeader = ({ data }: ListHeaderProps) => {
         </div>
       )}
       <ListOptions
-        onAddCard={()=>{}}
+        onAddCard={onAddCard}
         data={data}
       />
     </div>
