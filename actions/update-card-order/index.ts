@@ -36,6 +36,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       })
     );
     cards = await db.$transaction(transaction);
+    
   } catch {
     return {
       error: "Card reorder failed.",
